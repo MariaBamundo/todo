@@ -52,6 +52,10 @@ class TaskList extends React.Component {
         })
     }
 
+    editTask(item) {
+        console.log(item.id);
+        // change item.name into a text box and then on submit update item.name
+    }
 
     render() {
 
@@ -65,7 +69,10 @@ class TaskList extends React.Component {
                             <input type="checkbox" checked></input>
                             {item.name}
                             <button onClick={() => this.deleteTask(item)}>
-                                {'x'}
+                                {'delete'}
+                            </button>
+                            <button onClick={() => this.editTask(item)}>
+                                {'edit'}
                             </button>
                         </li>
                         //if checkbox is checked set isDone to true
@@ -75,7 +82,10 @@ class TaskList extends React.Component {
                                 <input type="checkbox" onClick={() => this.checkTask(item)}></input>
                                 {item.name}
                                 <button onClick={() => this.deleteTask(item)}>
-                                    {'x'}
+                                    {'delete'}
+                                </button>
+                                <button onClick={() => this.editTask(item)}>
+                                    {'edit'}
                                 </button>
                             </li>
                         }
