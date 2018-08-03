@@ -3,18 +3,21 @@ import gql from 'graphql-tag';
 import { graphql, Mutation, compose } from 'react-apollo';
 import { COMPLETE_TASK } from '../mutations';
 import { DELETE_TASK } from '../mutations';
+import { UPDATE_TASK } from '../mutations';
+import { GET_TASKS } from '../queries';
 
 class ListItem extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            item: this.props.task.item,
+            //some word is wrong here
+            item: this.props.item,
             id: this.props.task.id,
-            isDone: this.props.task.isDone,
+            isDone: this.props.isDone,
             editing: false
         };
     }
-
+/*
     deleteTask(item) {
         console.log(item.id);
         console.log(this.props);
@@ -44,8 +47,12 @@ class ListItem extends Component {
                 isDone: item.isDone,
             }
         })
-    }
+    }*/
+
     editTask() {
+        this.setState({
+            editing: true
+        });
     }
 
     updateTask(item) {
@@ -53,15 +60,56 @@ class ListItem extends Component {
         // change item.name into a text box and then on submit update item.name
     }
 
-    createTask(){
-        //base off code in taskList then change TaskList
+    createTask() {
+        if (this.state.editing) {
+            return (
+                <div>
+                    <input value={this.state.item} onChange={this.onChange} />
+                    <p></p>
+                    //<button className="save" onClick={() => this.saveButton()}> Save Item</button>
+                </div>);
+        }
+
+        else {
+            return (
+                <div>
+                    <p id={this.state.id}>{this.state.item}</p>
+                    <button className="edit" onClick={() => this.editButton()}> Edit Item</button>
+                </div>);
+        }
+        /*(item.isDone) {
+            return <li key={item.id}>
+                <input type="checkbox" checked></input>
+                <span>{item.name}</span>
+                <button onClick={() => this.deleteTask(item)}>
+                    {'delete'}
+                </button>
+                <button onClick={() => this.editTask(item)}>
+                    {'edit'}
+                </button>
+            </li>
+        }
+        //if checkbox is checked set isDone to true
+        //likewise when tasks are loaded with isDone as true they should be checked already
+        else {
+            return <li key={item.id}>
+                <input type="checkbox" onClick={() => this.checkTask(item)}></input>
+                {item.name}
+                <button onClick={() => this.deleteTask(item)}>
+                    {'delete'}
+                </button>
+                <button onClick={() => this.editTask(item)}>
+                    {'edit'}
+                </button>
+            </li>
+        }*/
     }
 
     render() {
-        return (this.createTask)
+        return (this.createTask())
     }
-
 }
+
 export default compose(graphql(GET_TASKS, { name: 'getTasks' }),
     graphql(DELETE_TASK, { name: 'removeTask' }),
     graphql(COMPLETE_TASK, { name: 'completeTask' }),

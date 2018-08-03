@@ -6,6 +6,7 @@ import { COMPLETE_TASK } from '../mutations';
 import { DELETE_TASK } from '../mutations';
 import { GET_TASKS } from '../queries';
 import { graphql, compose } from 'react-apollo';
+import ListItem from "./ListItem";
 
 // Create a todo list react component to display list of tasks
 class TaskList extends React.Component {
@@ -15,14 +16,11 @@ class TaskList extends React.Component {
         //this.state = { id: '' };
         this.state = {
             items: props.items,
-            editing: false
+            tasks: this.props.items
         };
     }
 
     deleteTask(item) {
-        const variables = {
-            id: item.id,
-        }
         console.log(item.id);
         console.log(this.props);
         this.props.removeTask({
@@ -62,57 +60,17 @@ class TaskList extends React.Component {
 
             <ul className="tasks">
                 {
-
-                    this.props.items.map(item => {
-
-                        /** if (this.state.editing === true) {
-                             return (
-                                 <div>
-                                     <input value={this.state.item} placeholder={item.name} onChange={this.onChange} />
-                                     <p></p>
-                                 </div>
-                             );
-                         }*/
-
-                        //if isDone is true then the checkbox should be checked
-                        if (item.isDone) return <li key={item.id}>
-                            <input type="checkbox" checked></input>
+                    this.state.tasks.map((item) => {
+                        <li key={item.id}>
+                            <input type="checkbox" checked={item.isDone}></input>
                             <span>{item.name}</span>
                             <button onClick={() => this.deleteTask(item)}>
                                 {'delete'}
                             </button>
-                            <input
-                                className="addTask"
-                                onChange={this.handleChange}
-                                value={this.state.name}
-                                placeholder={'Change Task'}
-                                size="4"
-                            />
                         </li>
-                        //if checkbox is checked set isDone to true
-                        //likewise when tasks are loaded with isDone as true they should be checked already
-                        else {
-                            return <li key={item.id}>
-                                <input type="checkbox" onClick={() => this.checkTask(item)}></input>
-                                {item.name}
-                                <button onClick={() => this.deleteTask(item)}>
-                                    {'delete'}
-                                </button>
-                                <input
-                                    className="addTask"
-                                    onChange={this.handleChange}
-                                    value={this.state.name}
-                                    placeholder={'Change Task'}
-                                    size="4"
-                                />
-                            </li>
-                        }
                     })
-
                 }
-            </ul>
-
-        );
+            </ul>);
     }
 }
 
