@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 //create your GraphQL mutation, wrap it in gql
 export const ADD_TASK = gql`
   mutation AddTask($name: String!){
-    addTask(name: $name, isDone: false ){
+    addTask(name: $name, isDone: false){
       id
       name
       isDone
@@ -11,7 +11,6 @@ export const ADD_TASK = gql`
   }
 `;
 
-//should be called check/uncheck depending on isDone input
 export const COMPLETE_TASK = gql`
 mutation completeTask($id: ID!, $isDone: Boolean!) {
     completeTask(id: $id, isDone: $isDone){
@@ -32,3 +31,11 @@ export const DELETE_TASK = gql`
         }
     }`;
 
+export const UPDATE_TASK = gql`
+    mutation updateTask($id: ID!, $name: String){
+        updateTask(id:$id, name: $name){
+            id
+            name
+            isDone
+        }
+    }`;

@@ -12,9 +12,10 @@ class TaskList extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { id: '' };
+        //this.state = { id: '' };
         this.state = {
-            items: props.items
+            items: props.items,
+            editing: false
         };
     }
 
@@ -51,11 +52,9 @@ class TaskList extends React.Component {
             }
         })
     }
-
-    editTask(item) {
-        console.log(item.id);
-        // change item.name into a text box and then on submit update item.name
+    editButton() {
     }
+
 
     render() {
 
@@ -63,17 +62,32 @@ class TaskList extends React.Component {
 
             <ul className="tasks">
                 {
+
                     this.props.items.map(item => {
+
+                        /** if (this.state.editing === true) {
+                             return (
+                                 <div>
+                                     <input value={this.state.item} placeholder={item.name} onChange={this.onChange} />
+                                     <p></p>
+                                 </div>
+                             );
+                         }*/
+
                         //if isDone is true then the checkbox should be checked
                         if (item.isDone) return <li key={item.id}>
                             <input type="checkbox" checked></input>
-                            {item.name}
+                            <span>{item.name}</span>
                             <button onClick={() => this.deleteTask(item)}>
                                 {'delete'}
                             </button>
-                            <button onClick={() => this.editTask(item)}>
-                                {'edit'}
-                            </button>
+                            <input
+                                className="addTask"
+                                onChange={this.handleChange}
+                                value={this.state.name}
+                                placeholder={'Change Task'}
+                                size="4"
+                            />
                         </li>
                         //if checkbox is checked set isDone to true
                         //likewise when tasks are loaded with isDone as true they should be checked already
@@ -84,9 +98,13 @@ class TaskList extends React.Component {
                                 <button onClick={() => this.deleteTask(item)}>
                                     {'delete'}
                                 </button>
-                                <button onClick={() => this.editTask(item)}>
-                                    {'edit'}
-                                </button>
+                                <input
+                                    className="addTask"
+                                    onChange={this.handleChange}
+                                    value={this.state.name}
+                                    placeholder={'Change Task'}
+                                    size="4"
+                                />
                             </li>
                         }
                     })
@@ -97,6 +115,7 @@ class TaskList extends React.Component {
         );
     }
 }
+
 
 export default compose(graphql(GET_TASKS, { name: 'getTasks' }),
     graphql(DELETE_TASK, { name: 'removeTask' }),

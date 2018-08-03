@@ -1,6 +1,6 @@
 var GraphQLNonNull = require('graphql').GraphQLNonNull;
 var GraphQLString = require('graphql').GraphQLString;
-var GraphQLBoolean = require('graphql').GraphQLBoolean;
+var GraphQLID = require('graphql').GraphQLID;
 var TodoType = require('../types/task');
 var TodoModel = require('../../schema');
 
@@ -9,13 +9,10 @@ exports.update = {
   args: {
     id: {
       name: 'id',
-      type: new GraphQLNonNull(GraphQLString)
+      type: new GraphQLNonNull(GraphQLID)
     },
     name: {
       type: new GraphQLNonNull(GraphQLString),
-    },
-    isDone: {
-      type: new GraphQLNonNull(GraphQLBoolean),
     }
   },
 
