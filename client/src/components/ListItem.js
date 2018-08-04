@@ -11,9 +11,7 @@ class ListItem extends Component {
         super(props);
         this.state = {
             //some word is wrong here
-            item: this.props.item,
-            id: this.props.task.id,
-            isDone: this.props.isDone,
+            item: props.item,
             editing: false
         };
     }
@@ -60,22 +58,20 @@ class ListItem extends Component {
         // change item.name into a text box and then on submit update item.name
     }
 
-    createTask() {
+    showItem() {
         if (this.state.editing) {
             return (
                 <div>
-                    <input value={this.state.item} onChange={this.onChange} />
-                    <p></p>
-                    //<button className="save" onClick={() => this.saveButton()}> Save Item</button>
+                    <input value={this.state.item.name} onChange={this.onChange} />
                 </div>);
         }
 
         else {
             return (
-                <div>
-                    <p id={this.state.id}>{this.state.item}</p>
+                <li key={this.state.item.id}>
+                    <p id={this.state.item.id}>{this.state.item.name}</p>
                     <button className="edit" onClick={() => this.editButton()}> Edit Item</button>
-                </div>);
+                </li>);
         }
         /*(item.isDone) {
             return <li key={item.id}>
@@ -106,7 +102,7 @@ class ListItem extends Component {
     }
 
     render() {
-        return (this.createTask())
+        return (this.showItem())
     }
 }
 

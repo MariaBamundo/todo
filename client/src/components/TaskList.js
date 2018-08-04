@@ -15,8 +15,7 @@ class TaskList extends React.Component {
         super(props);
         //this.state = { id: '' };
         this.state = {
-            items: props.items,
-            tasks: this.props.items
+            tasks: props.items,
         };
     }
 
@@ -56,18 +55,22 @@ class TaskList extends React.Component {
 
     render() {
 
+        //console.log(this.state.tasks);
         return (
 
+            
             <ul className="tasks">
                 {
+                    //something wrong with this line?
                     this.state.tasks.map((item) => {
-                        <li key={item.id}>
+                        //console.log(item);
+                        <div>
                             <input type="checkbox" checked={item.isDone}></input>
-                            <span>{item.name}</span>
+                            <ListItem task={item} />
                             <button onClick={() => this.deleteTask(item)}>
                                 {'delete'}
                             </button>
-                        </li>
+                            </div>
                     })
                 }
             </ul>);

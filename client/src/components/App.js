@@ -50,6 +50,7 @@ class App extends Component {
     }
 
     render() {
+        //console.log(this.props.getTasks.tasks);
         const loading = this.props.getTasks.loading;
         if (loading){
             return <div> loading </div>;
