@@ -59,6 +59,7 @@ class ListItem extends Component {
     }
 
     showItem() {
+        console.log("showItem");
         if (this.state.editing) {
             return (
                 <div>
@@ -68,10 +69,10 @@ class ListItem extends Component {
 
         else {
             return (
-                <li key={this.state.item.id}>
+                <span key={this.state.item.id}>
                     <p id={this.state.item.id}>{this.state.item.name}</p>
                     <button className="edit" onClick={() => this.editButton()}> Edit Item</button>
-                </li>);
+            </span>);
         }
         /*(item.isDone) {
             return <li key={item.id}>

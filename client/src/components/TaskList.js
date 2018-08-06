@@ -55,22 +55,25 @@ class TaskList extends React.Component {
 
     render() {
 
-        //console.log(this.state.tasks);
+       
+        console.log("taskList");
+        console.log(this.state.tasks);
         return (
 
             
             <ul className="tasks">
-                {
-                    //something wrong with this line?
+             <p>memes</p>
+             
+                    {
                     this.state.tasks.map((item) => {
                         //console.log(item);
-                        <div>
+                        <li>
                             <input type="checkbox" checked={item.isDone}></input>
-                            <ListItem task={item} />
+                            <ListItem task={this.props.item} />
                             <button onClick={() => this.deleteTask(item)}>
                                 {'delete'}
                             </button>
-                            </div>
+                        </li>
                     })
                 }
             </ul>);
